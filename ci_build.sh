@@ -100,6 +100,11 @@ CONFIG_OPTS+=(${CONFIG_FLAGS[@]})
 CONFIG_OPTS+=("PKG_CONFIG_PATH=${BUILD_PREFIX}/lib/pkgconfig")
 CONFIG_OPTS+=("--prefix=${BUILD_PREFIX}")
 CONFIG_OPTS+=("--with-docs=no")
+CONFIG_OPTS+=("CFLAGS=-Wno-format-truncation")
+CONFIG_OPTS+=("CPPFLAGS=-Wno-format-truncation")
+
+ZMQ_CONFIG_OPTS=()
+ZMQ_CONFIG_OPTS+=("--with-libsodium")
 
 # CCache CCACHE_PATH setup
 if [ "$HAVE_CCACHE" = yes ] && [ "${COMPILER_FAMILY}" = GCC ]; then
@@ -230,7 +235,7 @@ if [ ! -e autogen.sh ] && [ ! -e buildconf ] && [ ! -e ./configure ] && [ -s ./c
         autoconf || \
         autoreconf -fiv
 fi
-./configure "${CONFIG_OPTS[@]}"
+./configure "${CONFIG_OPTS[@]}" "${ZMQ_CONFIG_OPTS[@]}"
 make -j4
 make install
 cd "${BASE_PWD}"
