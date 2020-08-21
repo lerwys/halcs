@@ -58,6 +58,7 @@ pkg_deps_prereqs_source: &pkg_deps_prereqs_source
   - libsodium-dev
   - libzmq3-dev
   - libczmq-dev
+  - libmlm-dev
 
 pkg_deps_devtools: &pkg_deps_devtools
   - graphviz
@@ -70,6 +71,9 @@ pkg_deps_prereqs: &pkg_deps_prereqs
 
 addons:
   apt:
+    sources:
+      - sourceline: 'deb http://download.opensuse.org/repositories/network:/messaging:/zeromq:/git-stable/xUbuntu_18.04/ ./'
+        key_url: 'http://download.opensuse.org/repositories/network:/messaging:/zeromq:/git-stable/xUbuntu_18.04/Release.key'
     packages:
       - *pkg_deps_devtools
       - *pkg_deps_prereqs
